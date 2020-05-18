@@ -72,9 +72,7 @@ class Task
         }
     }
 
-
-
-    public function getAvailableAction($isClient = false) : string
+    public function getAvailableAction(bool $isClient = false) : string
     {
         if ($isClient) {
             return $this->getAvailableActionClient();
@@ -84,11 +82,29 @@ class Task
 
     private function getAvailableActionWorker() : string
     {
-        return null;
+        switch ($this->status) {
+            case self::STATUS_NEW:
+                return self::ACTION_REPLY;
+                break;
+            case self::STATUS_WORK:
+                return self::ACTION_DECLINE;
+                break;
+            default:
+                return null;
+        }
     }
 
     private function getAvailableActionClient() : string
     {
-        return null;
+        switch ($this->status) {
+            case self::STATUS_NEW:
+                return self::ACTION_CANCEL;
+                break;
+            case self::STATUS_WORK:
+                return self::ACTION_DONE;
+                break;
+            default:
+                return null;
+        }
     }
 }
