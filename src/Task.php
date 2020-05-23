@@ -14,37 +14,54 @@ class Task
     const ACTION_REPLY = 'action_reply';
     const ACTION_DONE = 'action_done';
     const ACTION_DECLINE = 'action_decline';
+    const ACTION_MESSAGE = 'action_message';
 
     private $status;
 
     private $workerId;
     private $clientId;
 
+    private $actions = [
+        self::ACTION_CANCEL => 'Отменить',
+        self::ACTION_REPLY => 'Откликнуться',
+        self::ACTION_DONE => 'Выполнено',
+        self::ACTION_DECLINE => 'Отказаться',
+        self::ACTION_MESSAGE => 'Написать сообщение'
+    ];
+
+    private $statuses = [
+       self::STATUS_NEW => 'Новое',
+       self::STATUS_CANCELLED => 'Отмененно',
+       self::STATUS_WORK => 'В работе',
+       self::STATUS_DONE => 'Выполнено',
+       self::STATUS_FAIL => 'Провалено'
+   ];
+
+    private $availableActionWorker = [
+        self::STATUS_NEW => [self::ACTION_REPLY, self::ACTION_MESSAGE],
+        self::STATUS_WORK => [self::ACTION_DECLINE, self::ACTION_MESSAGE]
+    ];
+
+    private $availableActionClient = [
+        self::STATUS_NEW => [self::ACTION_CANCEL, self::ACTION_MESSAGE],
+        self::STATUS_WORK => [self::ACTION_DONE, self::ACTION_MESSAGE]
+    ];
+
     public  function  __construct($worker, $client)
     {
         $this->workerId = $worker;
         $this->clientId = $client;
+        $this->status = self::STATUS_NEW;
     }
 
     public function getStatusesList() : array
     {
-       return [
-           self::STATUS_NEW => 'Новое',
-           self::STATUS_CANCELLED => 'Отмененно',
-           self::STATUS_WORK => 'В работе',
-           self::STATUS_DONE => 'Выполнено',
-           self::STATUS_FAIL => 'Провалено'
-       ];
+       return $this->statuses;
     }
 
     public function getActionsList() : array
     {
-       return [
-           self::ACTION_CANCEL => 'Отменить',
-           self::ACTION_REPLY => 'Откликнуться',
-           self::ACTION_DONE => 'Выполнено',
-           self::ACTION_DECLINE => 'Отказаться'
-       ];
+       return $this->actions;
     }
 
     public function setStatus(string $status)
@@ -52,7 +69,12 @@ class Task
         $this->status = $status;
     }
 
-    public function getNextStatus(string $action) : string
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    public function getNextStatus(string $action)
     {
         switch ($action) {
             case self::ACTION_CANCEL:
@@ -68,11 +90,11 @@ class Task
                 return self::STATUS_FAIL;
                 break;
             default:
-                return null;
+                throw new \Exception ('action <b>' . $action . '</b> doesnt change task status');
         }
     }
 
-    public function getAvailableAction(bool $isClient = false) : string
+    public function getAvailableAction(bool $isClient = false) : array
     {
         if ($isClient) {
             return $this->getAvailableActionClient();
@@ -80,31 +102,23 @@ class Task
         return $this->getAvailableActionWorker();
     }
 
-    private function getAvailableActionWorker() : string
+    private function getAvailableActionWorker() : array
     {
-        switch ($this->status) {
-            case self::STATUS_NEW:
-                return self::ACTION_REPLY;
-                break;
-            case self::STATUS_WORK:
-                return self::ACTION_DECLINE;
-                break;
-            default:
-                return null;
+        foreach ($this->availableActionWorker as $key => $action) {
+            if ($key === $this->status) {
+                return $action;
+            }
         }
+        return [null];
     }
 
-    private function getAvailableActionClient() : string
+    private function getAvailableActionClient() : array
     {
-        switch ($this->status) {
-            case self::STATUS_NEW:
-                return self::ACTION_CANCEL;
-                break;
-            case self::STATUS_WORK:
-                return self::ACTION_DONE;
-                break;
-            default:
-                return null;
+        foreach ($this->availableActionClient as $key => $action) {
+            if ($key === $this->status) {
+                return $action;
+            }
         }
+        return [null];
     }
 }
