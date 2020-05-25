@@ -98,16 +98,6 @@ class Task
     public function getAvailableAction(string $role) : array
     {
         $arr = [];
-        switch ($role) {
-            case 'worker':
-                $arr = array_key_exists($this->status, $this->availableAction[$role]) ? $this->availableAction[$role][$this->status] : [null];
-                break;
-            case 'client':
-                $arr = array_key_exists($this->status, $this->availableAction[$role]) ? $this->availableAction[$role][$this->status] : [null];
-                break;
-            default:
-                $arr = [null];
-        }
-        return $arr;
+        return array_key_exists($this->status, $this->availableAction[$role]) ? $this->availableAction[$role][$this->status] : [null];
     }
 }
