@@ -30,38 +30,39 @@ class Task
     ];
 
     private $statuses = [
-       self::STATUS_NEW => 'Новое',
-       self::STATUS_CANCELLED => 'Отмененно',
-       self::STATUS_WORK => 'В работе',
-       self::STATUS_DONE => 'Выполнено',
-       self::STATUS_FAIL => 'Провалено'
-   ];
-
-    private $availableActionWorker = [
-        self::STATUS_NEW => [self::ACTION_REPLY, self::ACTION_MESSAGE],
-        self::STATUS_WORK => [self::ACTION_DECLINE, self::ACTION_MESSAGE]
+        self::STATUS_NEW => 'Новое',
+        self::STATUS_CANCELLED => 'Отмененно',
+        self::STATUS_WORK => 'В работе',
+        self::STATUS_DONE => 'Выполнено',
+        self::STATUS_FAIL => 'Провалено'
     ];
 
-    private $availableActionClient = [
-        self::STATUS_NEW => [self::ACTION_CANCEL, self::ACTION_MESSAGE],
-        self::STATUS_WORK => [self::ACTION_DONE, self::ACTION_MESSAGE]
+    private $availableAction = [
+        'worker' => [
+            self::STATUS_NEW => [self::ACTION_REPLY, self::ACTION_MESSAGE],
+            self::STATUS_WORK => [self::ACTION_DECLINE, self::ACTION_MESSAGE]
+        ],
+        'client' => [
+            self::STATUS_NEW => [self::ACTION_CANCEL, self::ACTION_MESSAGE],
+            self::STATUS_WORK => [self::ACTION_DONE, self::ACTION_MESSAGE]
+        ]
     ];
 
-    public  function  __construct($worker, $client)
+    public function __construct($worker, $client, $status)
     {
         $this->workerId = $worker;
         $this->clientId = $client;
-        $this->status = self::STATUS_NEW;
+        $this->status =  array_key_exists($status, $this->getStatusesList()) ? $status : 'null';
     }
 
-    public function getStatusesList() : array
+    public function getStatusesList(): array
     {
-       return $this->statuses;
+        return $this->statuses;
     }
 
-    public function getActionsList() : array
+    public function getActionsList(): array
     {
-       return $this->actions;
+        return $this->actions;
     }
 
     public function setStatus(string $status)
@@ -94,31 +95,19 @@ class Task
         }
     }
 
-    public function getAvailableAction(bool $isClient = false) : array
+    public function getAvailableAction(string $role) : array
     {
-        if ($isClient) {
-            return $this->getAvailableActionClient();
+        $arr = [];
+        switch ($role) {
+            case 'worker':
+                $arr = array_key_exists($this->status, $this->availableAction[$role]) ? $this->availableAction[$role][$this->status] : [null];
+                break;
+            case 'client':
+                $arr = array_key_exists($this->status, $this->availableAction[$role]) ? $this->availableAction[$role][$this->status] : [null];
+                break;
+            default:
+                $arr = [null];
         }
-        return $this->getAvailableActionWorker();
-    }
-
-    private function getAvailableActionWorker() : array
-    {
-        foreach ($this->availableActionWorker as $key => $action) {
-            if ($key === $this->status) {
-                return $action;
-            }
-        }
-        return [null];
-    }
-
-    private function getAvailableActionClient() : array
-    {
-        foreach ($this->availableActionClient as $key => $action) {
-            if ($key === $this->status) {
-                return $action;
-            }
-        }
-        return [null];
+        return $arr;
     }
 }
