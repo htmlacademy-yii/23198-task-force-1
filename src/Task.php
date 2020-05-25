@@ -97,7 +97,6 @@ class Task
 
     public function getAvailableAction(string $role) : array
     {
-        $arr = [];
-        return array_key_exists($this->status, $this->availableAction[$role]) ? $this->availableAction[$role][$this->status] : [null];
+       return array_key_exists($this->status, $this->availableAction[$role]) ? $this->availableAction[$role][$this->status] : [null];
     }
 }
