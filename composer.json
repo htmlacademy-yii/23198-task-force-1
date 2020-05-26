@@ -1,0 +1,9 @@
+{
+    "name": "taskforce",
+    "require": {},
+    "autoload": {
+      "psr-4": {
+        "Taskforce\\": "src/"
+      }
+    }
+}
