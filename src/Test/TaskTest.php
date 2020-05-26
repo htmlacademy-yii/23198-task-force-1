@@ -1,9 +1,8 @@
 <?php
 namespace Taskforce\Test;
+require_once __DIR__ . '/../../vendor/autoload.php';
 
-use Taskforce\Task as Task;
-
-require_once __DIR__ . '/../src/Task.php';
+use Taskforce\BusinessLogic\Task as Task;
 
 $task = new Task(null, 1, 'status_new');
 
