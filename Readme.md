@@ -1,7 +1,7 @@
 # Личный проект «TaskForce»
 
 * Студент: [Роман Смирнов](https://up.htmlacademy.ru/yii/1/user/23198).
-* Наставник: [Дмитрий Крутько](https://htmlacademy.ru/profile/id187875).
+* Наставник: [Кирилл Сенкевич](https://htmlacademy.ru/profile/id295429).
 
 ---
 
