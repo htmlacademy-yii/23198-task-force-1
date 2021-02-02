@@ -2,6 +2,8 @@
 
 namespace Taskforce\BusinessLogic;
 
+require_once __DIR__ . '/../../vendor/autoload.php';
+
 class Task
 {
     const STATUS_NEW = 'status_new';
@@ -39,12 +41,18 @@ class Task
 
     private $availableAction = [
         'worker' => [
-            self::STATUS_NEW => [self::ACTION_REPLY, self::ACTION_MESSAGE],
-            self::STATUS_WORK => [self::ACTION_DECLINE, self::ACTION_MESSAGE]
+            self::STATUS_NEW => [ReplyAction::class, MessageAction::class],
+            self::STATUS_WORK => [DeclineAction::class, MessageAction::class],
+            self::STATUS_DONE => [MessageAction::class],
+            self::STATUS_CANCELLED => [MessageAction::class],
+            self::STATUS_FAIL => [MessageAction::class]
         ],
         'client' => [
-            self::STATUS_NEW => [self::ACTION_CANCEL, self::ACTION_MESSAGE],
-            self::STATUS_WORK => [self::ACTION_DONE, self::ACTION_MESSAGE]
+            self::STATUS_NEW => [CancelAction::class, MessageAction::class],
+            self::STATUS_WORK => [DoneAction::class, MessageAction::class],
+            self::STATUS_DONE => [MessageAction::class],
+            self::STATUS_CANCELLED => [MessageAction::class],
+            self::STATUS_FAIL => [MessageAction::class]
         ]
     ];
 
@@ -95,8 +103,23 @@ class Task
         }
     }
 
-    public function getAvailableAction(string $role) : array
-    {
-       return array_key_exists($this->status, $this->availableAction[$role]) ? $this->availableAction[$role][$this->status] : [null];
+    public function getWorkerId() : int {
+        return $this->workerId;
     }
+
+    public function getClientId() : int {
+        return $this->clientId;
+    }
+
+    public function getAvailableAction(string $role)
+    {
+       $arr = [];
+       $actions = array_key_exists($this->status, $this->availableAction[$role]) ? $this->availableAction[$role][$this->status] : [null];
+
+       foreach ($actions as $action) {
+           $arr[] = new $action();
+       }
+       return $arr;
+    }
+
 }
