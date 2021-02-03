@@ -1,8 +1,8 @@
 <?php
 
+namespace Taskforce\base\actions;
 
-namespace Taskforce\BusinessLogic;
-
+use Taskforce\base\Task;
 
 class ReplyAction extends AbstractAction
 {

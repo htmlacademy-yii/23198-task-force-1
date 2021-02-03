@@ -1,8 +1,9 @@
 <?php
 
 
-namespace Taskforce\BusinessLogic;
+namespace Taskforce\base\actions;
 
+use Taskforce\base\Task;
 
 class MessageAction extends AbstractAction
 {

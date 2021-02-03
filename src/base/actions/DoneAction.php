@@ -1,20 +1,21 @@
 <?php
 
 
-namespace Taskforce\BusinessLogic;
+namespace Taskforce\base\actions;
 
+use Taskforce\base\Task;
 
-class DeclineAction extends AbstractAction
+class DoneAction extends AbstractAction
 {
 
     public static function getName(): string
     {
-        return 'action_decline';
+        return 'action_done';
     }
 
     public function checkRules(Task $task, int $userId): bool
     {
         return $task->getStatus() === Task::STATUS_WORK &&
-            $task->getWorkerId() === $userId;
+        $task->getClientId() === $userId;
     }
 }

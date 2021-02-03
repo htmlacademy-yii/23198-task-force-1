@@ -1,6 +1,13 @@
 <?php
 
-namespace Taskforce\BusinessLogic;
+namespace Taskforce\base;
+
+use Taskforce\base\actions\ReplyAction;
+use Taskforce\base\actions\DeclineAction;
+use Taskforce\base\actions\MessageAction;
+use Taskforce\base\actions\CancelAction;
+use Taskforce\base\actions\DoneAction;
+
 
 require_once __DIR__ . '/../../vendor/autoload.php';
 
@@ -18,10 +25,13 @@ class Task
     const ACTION_DECLINE = 'action_decline';
     const ACTION_MESSAGE = 'action_message';
 
-    private $status;
+    const WORKER = 'worker';
+    const CLIENT = 'client';
 
-    private $workerId;
-    private $clientId;
+    private $_status;
+
+    private $_workerId;
+    private $_clientId;
 
     private $actions = [
         self::ACTION_CANCEL => 'Отменить',
@@ -40,14 +50,14 @@ class Task
     ];
 
     private $availableAction = [
-        'worker' => [
+        self::WORKER => [
             self::STATUS_NEW => [ReplyAction::class, MessageAction::class],
             self::STATUS_WORK => [DeclineAction::class, MessageAction::class],
             self::STATUS_DONE => [MessageAction::class],
             self::STATUS_CANCELLED => [MessageAction::class],
             self::STATUS_FAIL => [MessageAction::class]
         ],
-        'client' => [
+        self::CLIENT => [
             self::STATUS_NEW => [CancelAction::class, MessageAction::class],
             self::STATUS_WORK => [DoneAction::class, MessageAction::class],
             self::STATUS_DONE => [MessageAction::class],
@@ -56,11 +66,11 @@ class Task
         ]
     ];
 
-    public function __construct($worker, $client, $status)
+    public function __construct($workerId, $clientId, $status)
     {
-        $this->workerId = $worker;
-        $this->clientId = $client;
-        $this->status =  array_key_exists($status, $this->getStatusesList()) ? $status : 'null';
+        $this->_workerId = $workerId;
+        $this->_clientId = $clientId;
+        $this->_status =  array_key_exists($status, $this->getStatusesList()) ? $status : 'status_new';
     }
 
     public function getStatusesList(): array
@@ -75,12 +85,12 @@ class Task
 
     public function setStatus(string $status)
     {
-        $this->status = $status;
+        $this->_status = $status;
     }
 
     public function getStatus()
     {
-        return $this->status;
+        return $this->_status;
     }
 
     public function getNextStatus(string $action)
@@ -104,20 +114,20 @@ class Task
     }
 
     public function getWorkerId() : int {
-        return $this->workerId;
+        return $this->_workerId;
     }
 
     public function getClientId() : int {
-        return $this->clientId;
+        return $this->_clientId;
     }
 
-    public function getAvailableAction(string $role)
+    public function getAvailableAction(string $role) : array
     {
        $arr = [];
-       $actions = array_key_exists($this->status, $this->availableAction[$role]) ? $this->availableAction[$role][$this->status] : [null];
+       $actions = array_key_exists($this->_status, $this->availableAction[$role]) ? $this->availableAction[$role][$this->_status] : [null];
 
        foreach ($actions as $action) {
-           $arr[] = new $action();
+           $arr[$action::getActionName()] = new $action();
        }
        return $arr;
     }

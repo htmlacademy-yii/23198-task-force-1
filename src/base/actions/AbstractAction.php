@@ -1,13 +1,14 @@
 <?php
 
 
-namespace Taskforce\BusinessLogic;
+namespace Taskforce\base\actions;
 
+use Taskforce\base\Task;
 
 abstract class AbstractAction
 {
     public static function getActionName() : string {
-        return static::class;
+        return substr(strrchr(static::class, "\\"), 1);
     }
 
     abstract public static function getName() : string;
