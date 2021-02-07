@@ -85,8 +85,8 @@ class Task
             throw new UserException('Идентификаторы пользователя и заказчика совпадают');
         }
 
-        $this->_status =  array_key_exists($status, $this->getStatusesList()) ? $status : 'status_new';
-        if (!array_key_exists($status, $this->getStatusesList())) {
+        $this->_status =  array_key_exists($status, $this->getStatusesList()) ? $status : self::STATUS_NEW;
+        if (!array_key_exists($this->_status, $this->getStatusesList())) {
             throw new StatusException('Неверный статус задания');
         }
     }
