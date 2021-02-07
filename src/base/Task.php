@@ -7,6 +7,9 @@ use Taskforce\base\actions\DeclineAction;
 use Taskforce\base\actions\MessageAction;
 use Taskforce\base\actions\CancelAction;
 use Taskforce\base\actions\DoneAction;
+use Taskforce\base\exceptions\RoleException;
+use Taskforce\base\exceptions\StatusException;
+use Taskforce\base\exceptions\UserException;
 
 
 require_once __DIR__ . '/../../vendor/autoload.php';
@@ -66,11 +69,26 @@ class Task
         ]
     ];
 
-    public function __construct($workerId, $clientId, $status)
+    public function __construct(?int $workerId, int $clientId, string $status)
     {
         $this->_workerId = $workerId;
+        if (!is_null($workerId) && !is_int($workerId)) {
+            throw new UserException('Передан неправильный идентификатор исполнителя');
+        }
+
         $this->_clientId = $clientId;
+        if (!is_int($clientId)) {
+            throw new UserException('Передан неправильный идентификатор заказчика');
+        }
+
+        if ($workerId === $clientId) {
+            throw new UserException('Идентификаторы пользователя и заказчика совпадают');
+        }
+
         $this->_status =  array_key_exists($status, $this->getStatusesList()) ? $status : 'status_new';
+        if (!array_key_exists($status, $this->getStatusesList())) {
+            throw new StatusException('Неверный статус задания');
+        }
     }
 
     public function getStatusesList(): array
@@ -83,17 +101,20 @@ class Task
         return $this->actions;
     }
 
-    public function setStatus(string $status)
+    public function setStatus(string $status): void
     {
         $this->_status = $status;
+        if (!array_key_exists($status, $this->getStatusesList())) {
+            throw new StatusException('Неверно задан статус задания');
+        }
     }
 
-    public function getStatus()
+    public function getStatus(): string
     {
         return $this->_status;
     }
 
-    public function getNextStatus(string $action)
+    public function getNextStatus(string $action): string
     {
         switch ($action) {
             case self::ACTION_CANCEL:
@@ -113,7 +134,7 @@ class Task
         }
     }
 
-    public function getWorkerId() : int {
+    public function getWorkerId() : ?int {
         return $this->_workerId;
     }
 
@@ -123,7 +144,12 @@ class Task
 
     public function getAvailableAction(string $role) : array
     {
+        if ($this->availableAction[$role] === null) {
+            throw new RoleException('Переданая роль пользователя не существует');
+        }
+
        $arr = [];
+
        $actions = array_key_exists($this->_status, $this->availableAction[$role]) ? $this->availableAction[$role][$this->_status] : [null];
 
        foreach ($actions as $action) {
