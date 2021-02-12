@@ -69,6 +69,14 @@ class Task
         ]
     ];
 
+    /**
+     * Task constructor.
+     * @param int|null $workerId
+     * @param int $clientId
+     * @param string $status
+     * @throws StatusException
+     * @throws UserException
+     */
     public function __construct(?int $workerId, int $clientId, string $status)
     {
         $this->_workerId = $workerId;
@@ -101,6 +109,10 @@ class Task
         return $this->actions;
     }
 
+    /**
+     * @param string $status
+     * @throws StatusException
+     */
     public function setStatus(string $status): void
     {
         $this->_status = $status;
@@ -114,6 +126,11 @@ class Task
         return $this->_status;
     }
 
+    /**
+     * @param string $action
+     * @return string
+     * @throws \Exception
+     */
     public function getNextStatus(string $action): string
     {
         switch ($action) {
@@ -142,6 +159,11 @@ class Task
         return $this->_clientId;
     }
 
+    /**
+     * @param string $role
+     * @return array
+     * @throws RoleException
+     */
     public function getAvailableAction(string $role) : array
     {
         if ($this->availableAction[$role] === null) {
