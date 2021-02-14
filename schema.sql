@@ -50,7 +50,6 @@ CREATE TABLE IF NOT EXISTS `users` (
   `city_id` INT UNSIGNED NOT NULL COMMENT 'id города пользователя',
   `birthday` DATE NULL COMMENT 'Дата рождения',
   `info` VARCHAR(1000) NULL COMMENT 'Информация о пользователе',
---   `avatar` INT UNSIGNED NULL COMMENT 'Фото пользователя',
   `role` ENUM('client', 'worker') NOT NULL DEFAULT 'client' COMMENT 'Роль пользователя',
   `password` VARCHAR(255) NOT NULL COMMENT 'Пароль пользователя',
   `phone` VARCHAR(11) NULL COMMENT 'Телефон',

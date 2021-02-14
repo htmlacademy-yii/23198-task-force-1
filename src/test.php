@@ -27,6 +27,15 @@ catch (RoleException $e) {
     echo 'Ошибка роли пользователя: ' . $e->getMessage();
 }
 
+/**
+ * импортированные переменные из массива функцией extract
+ * @var \Taskforce\base\actions\MessageAction $MessageAction
+ * @var \Taskforce\base\actions\ReplyAction $ReplyAction
+ * @var \Taskforce\base\actions\DeclineAction $DeclineAction
+ * @var \Taskforce\base\actions\CancelAction $CancelAction
+ * @var \Taskforce\base\actions\DoneAction $DoneAction
+ */
+
 extract($action);
 assert(($ReplyAction::getName() === Task::ACTION_REPLY) && ($ReplyAction->checkRules($task, 2) === true), 'worker status new');
 assert(($MessageAction::getName() === Task::ACTION_MESSAGE) && ($MessageAction->checkRules($task, 2) === true), 'worker status new');
