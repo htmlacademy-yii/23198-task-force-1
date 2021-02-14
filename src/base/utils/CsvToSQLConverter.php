@@ -35,8 +35,8 @@ class CsvToSQLConverter
             throw new SourceFileException('Не удалось открыть файл');
         }
 
-        $this->_fileObject->setFlags(SplFileObject::READ_AHEAD);
-        $this->_fileObject->setFlags(SplFileObject::SKIP_EMPTY);
+        $this->_fileObject->setFlags(SplFileObject::READ_AHEAD | SplFileObject::SKIP_EMPTY);
+//        $this->_fileObject->setFlags(SplFileObject::SKIP_EMPTY);
     }
 
     /**
@@ -45,13 +45,19 @@ class CsvToSQLConverter
      */
     public function export() :void
     {
-        $this->_columns = $this->getColumns();
+        try {
+            $this->_columns = $this->getColumns();
 
-        foreach ($this->readFile() as $line) {
-            $this->_result[] = $line;
+            foreach ($this->readFile() as $line) {
+                $this->_result[] = $line;
+            }
+
+            $this->save(__DIR__ . '/../../../data/' . $this->_tableName . '.sql');
+        }
+        catch (OutFileException $e) {
+            echo $e->getMessage();
         }
 
-        $this->save(__DIR__ . '/../../../data/' . $this->_tableName . '.sql');
     }
 
     /**

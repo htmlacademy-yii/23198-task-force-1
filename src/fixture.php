@@ -7,79 +7,24 @@ use Taskforce\base\exceptions\OutFileException;
 use Taskforce\base\exceptions\SourceFileException;
 use Taskforce\base\utils\CsvToSQLConverter;
 
-try {
-    $cities = new CsvToSQLConverter(__DIR__ . '/../data/cities.csv', 'cities');
-}catch (SourceFileException $e) {
-    echo $e->getMessage();
-}
-try {
-    $cities->export();
-}catch (OutFileException $e) {
-    echo $e->getMessage();
-}
 
-try {
-    $cat = new CsvToSQLConverter(__DIR__ . '/../data/categories.csv', 'categories');
-}catch (SourceFileException $e){
-    echo $e->getMessage();
-}
-try {
-    $cat->export();
-}catch (OutFileException $e){
-    echo $e->getMessage();
-}
+$cities = new CsvToSQLConverter(__DIR__ . '/../data/cities.csv', 'cities');
+$cities->export();
 
-try {
-    $opinions = new CsvToSQLConverter(__DIR__ . '/../data/opinions.csv', 'opinions');
-}catch (SourceFileException $e){
-    echo $e->getMessage();
-}
-try {
-    $opinions->export();
-}catch (OutFileException $e){
-    echo $e->getMessage();
-}
+$cat = new CsvToSQLConverter(__DIR__ . '/../data/categories.csv', 'categories');
+$cat->export();
 
-try {
-    $profiles = new CsvToSQLConverter(__DIR__ . '/../data/profiles.csv', 'profiles');
-}catch (SourceFileException $e){
-    echo $e->getMessage();
-}
-try {
-    $profiles->export();
-}catch (OutFileException $e){
-    echo $e->getMessage();
-}
+$opinions = new CsvToSQLConverter(__DIR__ . '/../data/opinions.csv', 'opinions');
+$opinions->export();
 
-try {
-    $replies = new CsvToSQLConverter(__DIR__ . '/../data/replies.csv', 'replies');
-}catch (SourceFileException $e){
-    echo $e->getMessage();
-}
-try {
-    $replies->export();
-}catch (OutFileException $e){
-    echo $e->getMessage();
-}
+$profiles = new CsvToSQLConverter(__DIR__ . '/../data/profiles.csv', 'profiles');
+$profiles->export();
 
-try {
-    $tasks = new CsvToSQLConverter(__DIR__ . '/../data/tasks.csv', 'tasks');
-}catch (SourceFileException $e){
-    echo $e->getMessage();
-}
-try {
-    $tasks->export();
-}catch (OutFileException $e){
-    echo $e->getMessage();
-}
+$replies = new CsvToSQLConverter(__DIR__ . '/../data/replies.csv', 'replies');
+$replies->export();
 
-try {
-    $users = new CsvToSQLConverter(__DIR__ . '/../data/users.csv', 'users');
-}catch (SourceFileException $e){
-    echo $e->getMessage();
-}
-try {
-    $users->export();
-}catch (OutFileException $e){
-    echo $e->getMessage();
-}
+$tasks = new CsvToSQLConverter(__DIR__ . '/../data/tasks.csv', 'tasks');
+$tasks->export();
+
+$users = new CsvToSQLConverter(__DIR__ . '/../data/users.csv', 'users');
+$users->export();

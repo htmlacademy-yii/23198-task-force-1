@@ -77,7 +77,7 @@ CREATE TABLE IF NOT EXISTS `tasks` (
   `deadline` DATETIME NOT NULL COMMENT 'Дата завершения задачи',
   `city_id` INT UNSIGNED NULL COMMENT 'id города',
   `longitude` VARCHAR (255) NULL COMMENT 'Долгота',
-  `	latitude` VARCHAR (255) NULL COMMENT 'Широта',
+  `latitude` VARCHAR (255) NULL COMMENT 'Широта',
   INDEX `title_idx` (`title`),
   FULLTEXT INDEX `description_idx` (`description`),
   FOREIGN KEY (`user_create`) REFERENCES `users` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE,

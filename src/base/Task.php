@@ -14,6 +14,10 @@ use Taskforce\base\exceptions\UserException;
 
 require_once __DIR__ . '/../../vendor/autoload.php';
 
+/**
+ * Class Task
+ * @package Taskforce\base
+ */
 class Task
 {
     const STATUS_NEW = 'status_new';
