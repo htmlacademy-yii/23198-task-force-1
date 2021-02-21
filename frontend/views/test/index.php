@@ -2,16 +2,10 @@
 
 /* @var $this yii\web\View */
 
-use frontend\models\Tasks;
-use frontend\models\Users;
-
 $this->title = 'Test Controller';
-
-//$user = new Users();
-$users = Users::find()->all();
-$tasks = Tasks::find()->all();
 ?>
 Пользователи:
+<?php if ($users): ?>
 <ul>
     <?php foreach ($users as $user):?>
         <li>
@@ -21,7 +15,8 @@ $tasks = Tasks::find()->all();
         </li>
     <?php endforeach;?>
 </ul>
-
+<?php endif; ?>
+<?php if ($tasks): ?>
 Задания:
 <ul>
     <?php foreach ($tasks as $task):?>
@@ -32,3 +27,4 @@ $tasks = Tasks::find()->all();
         </li>
     <?php endforeach;?>
 </ul>
+<?php endif; ?>

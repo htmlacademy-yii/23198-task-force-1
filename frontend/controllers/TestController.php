@@ -2,7 +2,9 @@
 
 
 namespace frontend\controllers;
-use Yii;
+
+use frontend\models\Tasks;
+use frontend\models\Users;
 
 use yii\web\Controller;
 
@@ -13,6 +15,9 @@ class TestController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        $users = Users::find()->all();
+        $tasks = Tasks::find()->all();
+
+        return $this->render('index',['users' => $users, 'tasks' => $tasks]);
     }
 }
