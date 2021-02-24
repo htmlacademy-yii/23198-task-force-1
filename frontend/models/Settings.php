@@ -15,7 +15,7 @@ use Yii;
  * @property int $action_task Уведомление о действиях по заданию
  * @property int $new_review Уведомление о новом отзыве
  *
- * @property User $user
+ * @property Users $user
  */
 class Settings extends \yii\db\ActiveRecord
 {
@@ -36,7 +36,7 @@ class Settings extends \yii\db\ActiveRecord
             [['user_id'], 'required'],
             [['user_id', 'contact_hide', 'profile_hide', 'new_message', 'action_task', 'new_review'], 'integer'],
             [['user_id'], 'unique'],
-            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
+            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => Users::class, 'targetAttribute' => ['user_id' => 'id']],
         ];
     }
 
@@ -63,6 +63,6 @@ class Settings extends \yii\db\ActiveRecord
      */
     public function getUser()
     {
-        return $this->hasOne(User::className(), ['id' => 'user_id']);
+        return $this->hasOne(Users::class, ['id' => 'user_id']);
     }
 }

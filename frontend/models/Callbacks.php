@@ -35,8 +35,8 @@ class Callbacks extends \yii\db\ActiveRecord
             [['task_id', 'freelancer_id', 'price'], 'required'],
             [['task_id', 'freelancer_id', 'price'], 'integer'],
             [['text'], 'string', 'max' => 255],
-            [['freelancer_id'], 'exist', 'skipOnError' => true, 'targetClass' => Users::className(), 'targetAttribute' => ['freelancer_id' => 'id']],
-            [['task_id'], 'exist', 'skipOnError' => true, 'targetClass' => Tasks::className(), 'targetAttribute' => ['task_id' => 'id']],
+            [['freelancer_id'], 'exist', 'skipOnError' => true, 'targetClass' => Users::class, 'targetAttribute' => ['freelancer_id' => 'id']],
+            [['task_id'], 'exist', 'skipOnError' => true, 'targetClass' => Tasks::class, 'targetAttribute' => ['task_id' => 'id']],
         ];
     }
 
@@ -61,7 +61,7 @@ class Callbacks extends \yii\db\ActiveRecord
      */
     public function getFreelancer()
     {
-        return $this->hasOne(Users::className(), ['id' => 'freelancer_id']);
+        return $this->hasOne(Users::class, ['id' => 'freelancer_id']);
     }
 
     /**
@@ -71,6 +71,6 @@ class Callbacks extends \yii\db\ActiveRecord
      */
     public function getTask()
     {
-        return $this->hasOne(Tasks::className(), ['id' => 'task_id']);
+        return $this->hasOne(Tasks::class, ['id' => 'task_id']);
     }
 }

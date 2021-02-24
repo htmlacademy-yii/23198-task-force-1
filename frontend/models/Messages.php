@@ -14,9 +14,9 @@ use Yii;
  * @property string $created_at Дата создания
  * @property string $message Текст сообщения
  *
- * @property User $fromUser
- * @property User $toUser
- * @property Task $task
+ * @property Users $fromUser
+ * @property Users $toUser
+ * @property Tasks $task
  */
 class Messages extends \yii\db\ActiveRecord
 {
@@ -38,9 +38,9 @@ class Messages extends \yii\db\ActiveRecord
             [['from_user_id', 'to_user_id', 'task_id'], 'integer'],
             [['created_at'], 'safe'],
             [['message'], 'string', 'max' => 1000],
-            [['from_user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['from_user_id' => 'id']],
-            [['to_user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['to_user_id' => 'id']],
-            [['task_id'], 'exist', 'skipOnError' => true, 'targetClass' => Task::className(), 'targetAttribute' => ['task_id' => 'id']],
+            [['from_user_id'], 'exist', 'skipOnError' => true, 'targetClass' => Users::class, 'targetAttribute' => ['from_user_id' => 'id']],
+            [['to_user_id'], 'exist', 'skipOnError' => true, 'targetClass' => Users::class, 'targetAttribute' => ['to_user_id' => 'id']],
+            [['task_id'], 'exist', 'skipOnError' => true, 'targetClass' => Tasks::class, 'targetAttribute' => ['task_id' => 'id']],
         ];
     }
 
@@ -66,7 +66,7 @@ class Messages extends \yii\db\ActiveRecord
      */
     public function getFromUser()
     {
-        return $this->hasOne(User::className(), ['id' => 'from_user_id']);
+        return $this->hasOne(Users::class, ['id' => 'from_user_id']);
     }
 
     /**
@@ -76,7 +76,7 @@ class Messages extends \yii\db\ActiveRecord
      */
     public function getToUser()
     {
-        return $this->hasOne(User::className(), ['id' => 'to_user_id']);
+        return $this->hasOne(Users::class, ['id' => 'to_user_id']);
     }
 
     /**
@@ -86,6 +86,6 @@ class Messages extends \yii\db\ActiveRecord
      */
     public function getTask()
     {
-        return $this->hasOne(Task::className(), ['id' => 'task_id']);
+        return $this->hasOne(Tasks::class, ['id' => 'task_id']);
     }
 }

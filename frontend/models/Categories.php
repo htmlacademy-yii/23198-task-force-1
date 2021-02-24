@@ -55,7 +55,7 @@ class Categories extends \yii\db\ActiveRecord
      */
     public function getTasks()
     {
-        return $this->hasMany(Tasks::className(), ['category_id' => 'id']);
+        return $this->hasMany(Tasks::class, ['category_id' => 'id']);
     }
 
     /**
@@ -65,7 +65,7 @@ class Categories extends \yii\db\ActiveRecord
      */
     public function getUsersSpecializations()
     {
-        return $this->hasMany(UsersSpecialization::className(), ['category_id' => 'id']);
+        return $this->hasMany(UsersSpecialization::class, ['category_id' => 'id']);
     }
 
     /**
@@ -75,6 +75,6 @@ class Categories extends \yii\db\ActiveRecord
      */
     public function getUsers()
     {
-        return $this->hasMany(Users::className(), ['id' => 'user_id'])->viaTable('users_specialization', ['category_id' => 'id']);
+        return $this->hasMany(Users::class, ['id' => 'user_id'])->viaTable('users_specialization', ['category_id' => 'id']);
     }
 }

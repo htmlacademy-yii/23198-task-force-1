@@ -59,7 +59,7 @@ class Users extends ActiveRecord
             [['password'], 'string', 'max' => 255],
             [['phone'], 'string', 'max' => 11],
             [['skype', 'telegram'], 'string', 'max' => 50],
-            [['city_id'], 'exist', 'skipOnError' => true, 'targetClass' => Cities::className(), 'targetAttribute' => ['city_id' => 'id']],
+            [['city_id'], 'exist', 'skipOnError' => true, 'targetClass' => Cities::class, 'targetAttribute' => ['city_id' => 'id']],
         ];
     }
 
@@ -90,7 +90,7 @@ class Users extends ActiveRecord
      */
     public function getCallbacks()
     {
-        return $this->hasMany(Callbacks::className(), ['freelancer_id' => 'id']);
+        return $this->hasMany(Callbacks::class, ['freelancer_id' => 'id']);
     }
 
     /**
@@ -100,7 +100,7 @@ class Users extends ActiveRecord
      */
     public function getFavorites()
     {
-        return $this->hasMany(Favorite::className(), ['user_id' => 'id']);
+        return $this->hasMany(Favorite::class, ['user_id' => 'id']);
     }
 
     /**
@@ -110,7 +110,7 @@ class Users extends ActiveRecord
      */
     public function getMessages()
     {
-        return $this->hasMany(Messages::className(), ['from_user_id' => 'id']);
+        return $this->hasMany(Messages::class, ['from_user_id' => 'id']);
     }
 
     /**
@@ -120,7 +120,7 @@ class Users extends ActiveRecord
      */
     public function getMessages0()
     {
-        return $this->hasMany(Messages::className(), ['to_user_id' => 'id']);
+        return $this->hasMany(Messages::class, ['to_user_id' => 'id']);
     }
 
     /**
@@ -130,7 +130,7 @@ class Users extends ActiveRecord
      */
     public function getPhotos()
     {
-        return $this->hasMany(Photos::className(), ['user_id' => 'id']);
+        return $this->hasMany(Photos::class, ['user_id' => 'id']);
     }
 
     /**
@@ -140,7 +140,7 @@ class Users extends ActiveRecord
      */
     public function getRatings()
     {
-        return $this->hasMany(Ratings::className(), ['user_id' => 'id']);
+        return $this->hasMany(Ratings::class, ['user_id' => 'id']);
     }
 
     /**
@@ -150,7 +150,7 @@ class Users extends ActiveRecord
      */
     public function getRatings0()
     {
-        return $this->hasMany(Ratings::className(), ['freelancer_id' => 'id']);
+        return $this->hasMany(Ratings::class, ['freelancer_id' => 'id']);
     }
 
     /**
@@ -160,7 +160,7 @@ class Users extends ActiveRecord
      */
     public function getSettings()
     {
-        return $this->hasOne(Settings::className(), ['user_id' => 'id']);
+        return $this->hasOne(Settings::class, ['user_id' => 'id']);
     }
 
     /**
@@ -170,7 +170,7 @@ class Users extends ActiveRecord
      */
     public function getTasks()
     {
-        return $this->hasMany(Tasks::className(), ['user_create' => 'id']);
+        return $this->hasMany(Tasks::class, ['user_create' => 'id']);
     }
 
     /**
@@ -180,7 +180,7 @@ class Users extends ActiveRecord
      */
     public function getTasks0()
     {
-        return $this->hasMany(Tasks::className(), ['freelancer' => 'id']);
+        return $this->hasMany(Tasks::class, ['freelancer' => 'id']);
     }
 
     /**
@@ -190,7 +190,7 @@ class Users extends ActiveRecord
      */
     public function getCity()
     {
-        return $this->hasOne(Cities::className(), ['id' => 'city_id']);
+        return $this->hasOne(Cities::class, ['id' => 'city_id']);
     }
 
     /**
@@ -200,7 +200,7 @@ class Users extends ActiveRecord
      */
     public function getUsersSpecializations()
     {
-        return $this->hasMany(UsersSpecialization::className(), ['user_id' => 'id']);
+        return $this->hasMany(UsersSpecialization::class, ['user_id' => 'id']);
     }
 
     /**
@@ -210,6 +210,6 @@ class Users extends ActiveRecord
      */
     public function getCategories()
     {
-        return $this->hasMany(Categories::className(), ['id' => 'category_id'])->viaTable('users_specialization', ['user_id' => 'id']);
+        return $this->hasMany(Categories::class, ['id' => 'category_id'])->viaTable('users_specialization', ['user_id' => 'id']);
     }
 }

@@ -11,8 +11,8 @@ use Yii;
  * @property int $user_id id пользователя
  * @property int $category_id id категории
  *
- * @property User $user
- * @property Category $category
+ * @property Users $user
+ * @property Categories $category
  */
 class UsersSpecialization extends \yii\db\ActiveRecord
 {
@@ -33,8 +33,8 @@ class UsersSpecialization extends \yii\db\ActiveRecord
             [['user_id', 'category_id'], 'required'],
             [['user_id', 'category_id'], 'integer'],
             [['user_id', 'category_id'], 'unique', 'targetAttribute' => ['user_id', 'category_id']],
-            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
-            [['category_id'], 'exist', 'skipOnError' => true, 'targetClass' => Category::className(), 'targetAttribute' => ['category_id' => 'id']],
+            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => Users::class, 'targetAttribute' => ['user_id' => 'id']],
+            [['category_id'], 'exist', 'skipOnError' => true, 'targetClass' => Categories::class, 'targetAttribute' => ['category_id' => 'id']],
         ];
     }
 
@@ -57,7 +57,7 @@ class UsersSpecialization extends \yii\db\ActiveRecord
      */
     public function getUser()
     {
-        return $this->hasOne(User::className(), ['id' => 'user_id']);
+        return $this->hasOne(Users::class, ['id' => 'user_id']);
     }
 
     /**
@@ -67,6 +67,6 @@ class UsersSpecialization extends \yii\db\ActiveRecord
      */
     public function getCategory()
     {
-        return $this->hasOne(Category::className(), ['id' => 'category_id']);
+        return $this->hasOne(Categories::class, ['id' => 'category_id']);
     }
 }

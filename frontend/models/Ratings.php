@@ -14,9 +14,9 @@ use Yii;
  * @property string|null $review Текст отзыва
  * @property float|null $rating Рейтинг
  *
- * @property User $user
- * @property User $freelancer
- * @property Task $task
+ * @property Users $user
+ * @property Users $freelancer
+ * @property Tasks $task
  */
 class Ratings extends \yii\db\ActiveRecord
 {
@@ -39,9 +39,9 @@ class Ratings extends \yii\db\ActiveRecord
             [['review'], 'string'],
             [['rating'], 'number'],
             [['user_id', 'freelancer_id', 'task_id'], 'unique', 'targetAttribute' => ['user_id', 'freelancer_id', 'task_id']],
-            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
-            [['freelancer_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['freelancer_id' => 'id']],
-            [['task_id'], 'exist', 'skipOnError' => true, 'targetClass' => Task::className(), 'targetAttribute' => ['task_id' => 'id']],
+            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => Users::class, 'targetAttribute' => ['user_id' => 'id']],
+            [['freelancer_id'], 'exist', 'skipOnError' => true, 'targetClass' => Users::class, 'targetAttribute' => ['freelancer_id' => 'id']],
+            [['task_id'], 'exist', 'skipOnError' => true, 'targetClass' => Tasks::class, 'targetAttribute' => ['task_id' => 'id']],
         ];
     }
 
@@ -67,7 +67,7 @@ class Ratings extends \yii\db\ActiveRecord
      */
     public function getUser()
     {
-        return $this->hasOne(User::className(), ['id' => 'user_id']);
+        return $this->hasOne(Users::class, ['id' => 'user_id']);
     }
 
     /**
@@ -77,7 +77,7 @@ class Ratings extends \yii\db\ActiveRecord
      */
     public function getFreelancer()
     {
-        return $this->hasOne(User::className(), ['id' => 'freelancer_id']);
+        return $this->hasOne(Users::class, ['id' => 'freelancer_id']);
     }
 
     /**
@@ -87,6 +87,6 @@ class Ratings extends \yii\db\ActiveRecord
      */
     public function getTask()
     {
-        return $this->hasOne(Task::className(), ['id' => 'task_id']);
+        return $this->hasOne(Tasks::class, ['id' => 'task_id']);
     }
 }
