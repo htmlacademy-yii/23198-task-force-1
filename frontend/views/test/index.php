@@ -1,6 +1,14 @@
 <?php
 
-/* @var $this yii\web\View */
+use yii\web\View;
+use frontend\models\Tasks;
+use frontend\models\Users;
+
+/**
+ * @var View $this
+ * @var Users[] $users
+ * @var Tasks[] $tasks
+ */
 
 $this->title = 'Test Controller';
 ?>
