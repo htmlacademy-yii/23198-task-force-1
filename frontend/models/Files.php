@@ -43,8 +43,8 @@ class Files extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'task_id' => 'Task ID',
-            'path' => 'Path',
+            'task_id' => Yii::t('app', 'id задания'),
+            'path' => Yii::t('app', 'Путь до файла'),
         ];
     }
 

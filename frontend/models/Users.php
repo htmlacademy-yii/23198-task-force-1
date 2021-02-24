@@ -22,14 +22,14 @@ use yii\db\ActiveRecord;
  *
  * @property Callbacks[] $callbacks
  * @property Favorite[] $favorites
- * @property Messages[] $messages
- * @property Messages[] $messages0
+ * @property Messages[] $messagesFromUser
+ * @property Messages[] $messagesToUser
  * @property Photos[] $photos
- * @property Ratings[] $ratings
- * @property Ratings[] $ratings0
+ * @property Ratings[] $ratingsUser
+ * @property Ratings[] $ratingsFreelancer
  * @property Settings $settings
- * @property Tasks[] $tasks
- * @property Tasks[] $tasks0
+ * @property Tasks[] $tasksUser
+ * @property Tasks[] $tasksFreelancer
  * @property Cities $city
  * @property UsersSpecialization[] $usersSpecializations
  * @property Categories[] $categories
@@ -70,16 +70,16 @@ class Users extends ActiveRecord
     {
         return [
             'id' => 'ID',
-            'name' => 'Name',
-            'email' => 'Email',
-            'city_id' => 'City ID',
-            'birthday' => 'Birthday',
-            'info' => 'Info',
-            'role' => 'Role',
-            'password' => 'Password',
-            'phone' => 'Phone',
-            'skype' => 'Skype',
-            'telegram' => 'Telegram',
+            'name' => Yii::t('app', 'ФИО пользователя'),
+            'email' => Yii::t('app', 'Электронная почта пользователя'),
+            'city_id' => Yii::t('app', 'id города пользователя'),
+            'birthday' => Yii::t('app', 'Дата рождения'),
+            'info' => Yii::t('app', 'Информация о пользователе'),
+            'role' => Yii::t('app', 'Роль пользователя'),
+            'password' => Yii::t('app', 'Пароль пользователя'),
+            'phone' => Yii::t('app', 'Телефон'),
+            'skype' => Yii::t('app', 'Скайп'),
+            'telegram' => Yii::t('app', 'Телеграм'),
         ];
     }
 
@@ -104,21 +104,21 @@ class Users extends ActiveRecord
     }
 
     /**
-     * Gets query for [[Messages]].
+     * Gets query for [[MessagesFromUser]].
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getMessages()
+    public function getMessagesFromUser()
     {
         return $this->hasMany(Messages::class, ['from_user_id' => 'id']);
     }
 
     /**
-     * Gets query for [[Messages0]].
+     * Gets query for [[MessagesToUser]].
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getMessages0()
+    public function getMessagesToUser()
     {
         return $this->hasMany(Messages::class, ['to_user_id' => 'id']);
     }
@@ -134,7 +134,7 @@ class Users extends ActiveRecord
     }
 
     /**
-     * Gets query for [[Ratings]].
+     * Gets query for [[RatingsUser]].
      *
      * @return \yii\db\ActiveQuery
      */
@@ -144,11 +144,11 @@ class Users extends ActiveRecord
     }
 
     /**
-     * Gets query for [[Ratings0]].
+     * Gets query for [[RatingsFreelancer]].
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getRatings0()
+    public function getRatingsFreelancer()
     {
         return $this->hasMany(Ratings::class, ['freelancer_id' => 'id']);
     }
@@ -164,21 +164,21 @@ class Users extends ActiveRecord
     }
 
     /**
-     * Gets query for [[Tasks]].
+     * Gets query for [[TasksUser]].
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getTasks()
+    public function getTasksUser()
     {
         return $this->hasMany(Tasks::class, ['user_create' => 'id']);
     }
 
     /**
-     * Gets query for [[Tasks0]].
+     * Gets query for [[TasksFreelancer]].
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getTasks0()
+    public function getTasksFreelancer()
     {
         return $this->hasMany(Tasks::class, ['freelancer' => 'id']);
     }

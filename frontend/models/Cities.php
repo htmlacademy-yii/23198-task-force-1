@@ -43,9 +43,9 @@ class Cities extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'name' => 'Name',
-            'longitude' => 'Longitude',
-            'latitude' => 'Latitude',
+            'name' => Yii::t('app', 'Город'),
+            'longitude' => Yii::t('app', 'Долгота'),
+            'latitude' => Yii::t('app', 'Широта'),
         ];
     }
 

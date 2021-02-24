@@ -27,7 +27,7 @@ use Yii;
  * @property Messages[] $messages
  * @property Ratings[] $ratings
  * @property Users $userCreate
- * @property Users $freelancer0
+ * @property Users $freelancerTask
  * @property Categories $category
  */
 class Tasks extends \yii\db\ActiveRecord
@@ -65,18 +65,18 @@ class Tasks extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'user_create' => 'User Create',
-            'freelancer' => 'Freelancer',
-            'category_id' => 'Category ID',
-            'status' => 'Status',
-            'title' => 'Title',
-            'description' => 'Description',
-            'create_at' => 'Create At',
-            'price' => 'Price',
-            'deadline' => 'Deadline',
-            'city_id' => 'City ID',
-            'longitude' => 'Longitude',
-            'latitude' => 'Latitude',
+            'user_create' => Yii::t('app', 'id пользователя'),
+            'freelancer' => Yii::t('app', 'id исполнителя'),
+            'category_id' => Yii::t('app', 'id категории'),
+            'status' => Yii::t('app', 'Статус задачи'),
+            'title' => Yii::t('app', 'Заголовок задачи'),
+            'description' => Yii::t('app', 'Описание задачи'),
+            'create_at' => Yii::t('app', 'Время создания объявления'),
+            'price' => Yii::t('app', 'Стоимость работы'),
+            'deadline' => Yii::t('app', 'Дата завершения задачи задачи'),
+            'city_id' => Yii::t('app', 'id города'),
+            'longitude' => Yii::t('app', 'Долгота'),
+            'latitude' => Yii::t('app', 'Широта'),
         ];
     }
 
@@ -145,7 +145,7 @@ class Tasks extends \yii\db\ActiveRecord
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getFreelancer0()
+    public function getFreelancerTask()
     {
         return $this->hasOne(Users::class, ['id' => 'freelancer']);
     }

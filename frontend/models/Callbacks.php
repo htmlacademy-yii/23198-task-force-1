@@ -47,10 +47,10 @@ class Callbacks extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'task_id' => 'Task ID',
-            'freelancer_id' => 'Freelancer ID',
-            'text' => 'Text',
-            'price' => 'Price',
+            'task_id' => Yii::t('app', 'ID задания'),
+            'freelancer_id' => Yii::t('app', 'ID исполнителя'),
+            'text' => Yii::t('app', 'Текст отклика'),
+            'price' => Yii::t('app', 'Цена исполнителя за работу'),
         ];
     }
 

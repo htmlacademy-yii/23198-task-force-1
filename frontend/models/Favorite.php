@@ -44,8 +44,8 @@ class Favorite extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'user_id' => 'User ID',
-            'task_id' => 'Task ID',
+            'user_id' => Yii::t('app', 'id пользователя'),
+            'task_id' => Yii::t('app', 'id задачи в избранном'),
         ];
     }
 

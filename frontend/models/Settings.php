@@ -47,12 +47,12 @@ class Settings extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'user_id' => 'User ID',
-            'contact_hide' => 'Contact Hide',
-            'profile_hide' => 'Profile Hide',
-            'new_message' => 'New Message',
-            'action_task' => 'Action Task',
-            'new_review' => 'New Review',
+            'user_id' => Yii::t('app', 'id пользователя'),
+            'contact_hide' => Yii::t('app', 'Видимость контактов'),
+            'profile_hide' => Yii::t('app', 'Видимость профиля'),
+            'new_message' => Yii::t('app', 'Уведомление о новых сообщениях'),
+            'action_task' => Yii::t('app', 'Уведомление о действиях по заданию'),
+            'new_review' => Yii::t('app', 'Уведомление о новом отзыве'),
         ];
     }
 

@@ -51,11 +51,11 @@ class Messages extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'from_user_id' => 'From User ID',
-            'to_user_id' => 'To User ID',
-            'task_id' => 'Task ID',
-            'created_at' => 'Created At',
-            'message' => 'Message',
+            'from_user_id' => Yii::t('app', 'id отправителя'),
+            'to_user_id' => Yii::t('app', 'id получателя'),
+            'task_id' => Yii::t('app', 'id задания'),
+            'created_at' => Yii::t('app', 'Дата создания'),
+            'message' => Yii::t('app', 'Текст сообщения'),
         ];
     }
 

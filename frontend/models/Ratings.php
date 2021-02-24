@@ -52,11 +52,11 @@ class Ratings extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'user_id' => 'User ID',
-            'freelancer_id' => 'Freelancer ID',
-            'task_id' => 'Task ID',
-            'review' => 'Review',
-            'rating' => 'Rating',
+            'user_id' => Yii::t('app', 'id пользователя'),
+            'freelancer_id' => Yii::t('app', 'id исполнителя'),
+            'task_id' => Yii::t('app', 'id задания'),
+            'review' => Yii::t('app', 'Текст отзыва'),
+            'rating' => Yii::t('app', 'Рейтинг'),
         ];
     }
 

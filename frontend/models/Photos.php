@@ -43,8 +43,8 @@ class Photos extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'user_id' => 'User ID',
-            'path' => 'Path',
+            'user_id' => Yii::t('app', 'id пользователя'),
+            'path' => Yii::t('app', 'путь до файла'),
         ];
     }
 

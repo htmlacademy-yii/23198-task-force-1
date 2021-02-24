@@ -43,8 +43,8 @@ class Categories extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'name' => 'Name',
-            'slug' => 'Slug',
+            'name' => Yii::t('app', 'Название категории'),
+            'slug' => Yii::t('app', 'Текстовый идентификатор'),
         ];
     }
 
