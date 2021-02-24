@@ -13,8 +13,8 @@ use Yii;
  * @property string|null $text Текст отклика
  * @property int $price Цена исполнителя за работу
  *
- * @property Users $freelancer
- * @property Tasks $task
+ * @property-read  Users $freelancer
+ * @property-read  Tasks $task
  */
 class Callbacks extends \yii\db\ActiveRecord
 {

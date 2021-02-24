@@ -11,9 +11,9 @@ use Yii;
  * @property string $name Категория
  * @property string $slug Текстовый идентификатор
  *
- * @property Tasks[] $tasks
- * @property UsersSpecialization[] $usersSpecializations
- * @property Users[] $users
+ * @property-read  Tasks[] $tasks
+ * @property-read  UsersSpecialization[] $usersSpecializations
+ * @property-read  Users[] $users
  */
 class Categories extends \yii\db\ActiveRecord
 {

@@ -12,7 +12,7 @@ use Yii;
  * @property string $longitude Долгота
  * @property string $latitude Широта
  *
- * @property Users[] $users
+ * @property-read  Users[] $users
  */
 class Cities extends \yii\db\ActiveRecord
 {

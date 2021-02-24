@@ -21,14 +21,14 @@ use Yii;
  * @property string|null $longitude Долгота
  * @property string|null $latitude Широта
  *
- * @property Callbacks[] $callbacks
- * @property Favorite[] $favorites
- * @property Files[] $files
- * @property Messages[] $messages
- * @property Ratings[] $ratings
- * @property Users $userCreate
- * @property Users $freelancerTask
- * @property Categories $category
+ * @property-read  Callbacks[] $callbacks
+ * @property-read  Favorite[] $favorites
+ * @property-read  Files[] $files
+ * @property-read  Messages[] $messages
+ * @property-read  Ratings[] $ratings
+ * @property-read  Users $userCreate
+ * @property-read  Users $freelancerTask
+ * @property-read  Categories $category
  */
 class Tasks extends \yii\db\ActiveRecord
 {

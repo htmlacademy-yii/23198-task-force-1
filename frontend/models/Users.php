@@ -20,19 +20,19 @@ use yii\db\ActiveRecord;
  * @property string|null $skype Скайп
  * @property string|null $telegram Телеграм
  *
- * @property Callbacks[] $callbacks
- * @property Favorite[] $favorites
- * @property Messages[] $messagesFromUser
- * @property Messages[] $messagesToUser
- * @property Photos[] $photos
- * @property Ratings[] $ratingsUser
- * @property Ratings[] $ratingsFreelancer
- * @property Settings $settings
- * @property Tasks[] $tasksUser
- * @property Tasks[] $tasksFreelancer
- * @property Cities $city
- * @property UsersSpecialization[] $usersSpecializations
- * @property Categories[] $categories
+ * @property-read  Callbacks[] $callbacks
+ * @property-read  Favorite[] $favorites
+ * @property-read  Messages[] $messagesFromUser
+ * @property-read  Messages[] $messagesToUser
+ * @property-read  Photos[] $photos
+ * @property-read  Ratings[] $ratingsUser
+ * @property-read  Ratings[] $ratingsFreelancer
+ * @property-read  Settings $settings
+ * @property-read  Tasks[] $tasksUser
+ * @property-read  Tasks[] $tasksFreelancer
+ * @property-read  Cities $city
+ * @property-read  UsersSpecialization[] $usersSpecializations
+ * @property-read  Categories[] $categories
  */
 class Users extends ActiveRecord
 {

@@ -14,9 +14,9 @@ use Yii;
  * @property string $created_at Дата создания
  * @property string $message Текст сообщения
  *
- * @property Users $fromUser
- * @property Users $toUser
- * @property Tasks $task
+ * @property-read  Users $fromUser
+ * @property-read  Users $toUser
+ * @property-read  Tasks $task
  */
 class Messages extends \yii\db\ActiveRecord
 {

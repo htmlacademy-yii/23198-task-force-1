@@ -11,7 +11,7 @@ use Yii;
  * @property int $task_id id задания
  * @property string|null $path Путь до файла
  *
- * @property Tasks $task
+ * @property-read  Tasks $task
  */
 class Files extends \yii\db\ActiveRecord
 {

@@ -14,9 +14,9 @@ use Yii;
  * @property string|null $review Текст отзыва
  * @property float|null $rating Рейтинг
  *
- * @property Users $user
- * @property Users $freelancer
- * @property Tasks $task
+ * @property-read  Users $user
+ * @property-read  Users $freelancer
+ * @property-read  Tasks $task
  */
 class Ratings extends \yii\db\ActiveRecord
 {

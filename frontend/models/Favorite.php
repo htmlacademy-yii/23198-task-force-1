@@ -11,8 +11,8 @@ use Yii;
  * @property int $user_id id пользователя
  * @property int $task_id id задачи в избранном
  *
- * @property Users $user
- * @property Tasks $task
+ * @property-read  Users $user
+ * @property-read  Tasks $task
  */
 class Favorite extends \yii\db\ActiveRecord
 {

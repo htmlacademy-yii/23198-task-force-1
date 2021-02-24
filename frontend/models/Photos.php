@@ -11,7 +11,7 @@ use Yii;
  * @property int $user_id id пользователя
  * @property string $path Путь до файла
  *
- * @property Users $user
+ * @property-read  Users $user
  */
 class Photos extends \yii\db\ActiveRecord
 {

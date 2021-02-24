@@ -15,7 +15,7 @@ use Yii;
  * @property int $action_task Уведомление о действиях по заданию
  * @property int $new_review Уведомление о новом отзыве
  *
- * @property Users $user
+ * @property-read  Users $user
  */
 class Settings extends \yii\db\ActiveRecord
 {
