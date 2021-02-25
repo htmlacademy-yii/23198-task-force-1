@@ -3,6 +3,7 @@
 namespace frontend\models;
 
 use Yii;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "settings".
@@ -17,7 +18,7 @@ use Yii;
  *
  * @property-read  Users $user
  */
-class Settings extends \yii\db\ActiveRecord
+class Settings extends ActiveRecord
 {
     /**
      * {@inheritdoc}

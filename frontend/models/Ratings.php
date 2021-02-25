@@ -3,6 +3,7 @@
 namespace frontend\models;
 
 use Yii;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "ratings".
@@ -18,7 +19,7 @@ use Yii;
  * @property-read  Users $freelancer
  * @property-read  Tasks $task
  */
-class Ratings extends \yii\db\ActiveRecord
+class Ratings extends ActiveRecord
 {
     /**
      * {@inheritdoc}

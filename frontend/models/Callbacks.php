@@ -3,6 +3,7 @@
 namespace frontend\models;
 
 use Yii;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "callbacks".
@@ -16,7 +17,7 @@ use Yii;
  * @property-read  Users $freelancer
  * @property-read  Tasks $task
  */
-class Callbacks extends \yii\db\ActiveRecord
+class Callbacks extends ActiveRecord
 {
     /**
      * {@inheritdoc}

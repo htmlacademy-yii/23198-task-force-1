@@ -12,6 +12,7 @@ use frontend\models\Users;
 $this->title = 'Users Controller';
 ?>
 <section class="user__search">
+    <?php foreach ($users as $user): ?>
     <div class="content-view__feedback-card user__search-wrapper">
         <div class="feedback-card__top">
             <div class="user__search-icon">
@@ -20,13 +21,11 @@ $this->title = 'Users Controller';
                 <span>6 отзывов</span>
             </div>
             <div class="feedback-card__top--name user__search-card">
-                <p class="link-name"><a href="user.html" class="link-regular">Астахов Павел</a></p>
+                <p class="link-name"><a href="user.html" class="link-regular"><?= $user->name;?></a></p>
                 <span></span><span></span><span></span><span></span><span class="star-disabled"></span>
                 <b>4.25</b>
                 <p class="user__search-content">
-                    Сложно сказать, почему элементы политического процесса лишь
-                    добавляют фракционных разногласий и рассмотрены исключительно
-                    в разрезе маркетинговых и финансовых предпосылок.
+                    <?= $user->info;?>
                 </p>
             </div>
             <span class="new-task__time">Был на сайте 25 минут назад</span>
@@ -37,56 +36,7 @@ $this->title = 'Users Controller';
             <a href="browse.html" class="link-regular">Оператор ПК</a>
         </div>
     </div>
-    <div class="content-view__feedback-card user__search-wrapper">
-        <div class="feedback-card__top">
-            <div class="user__search-icon">
-                <a href="user.html"><img src="./img/user-man2.jpg" width="65" height="65"></a>
-                <span>6 заданий</span>
-                <span>3 отзывов</span>
-            </div>
-            <div class="feedback-card__top--name user__search-card">
-                <p class="link-name"><a href="user.html" class="link-regular">Миронов Алексей</a></p>
-                <span></span><span></span><span></span><span></span><span class="star-disabled"></span>
-                <b>4.25</b>
-                <p class="user__search-content">
-                    Как принято считать, акционеры крупнейших компаний формируют глобальную
-                    экономическую сеть и при этом - рассмотрены исключительно в разрезе
-                    маркетинговых и финансовых предпосылок
-                </p>
-            </div>
-            <span class="new-task__time">Был на сайте час назад</span>
-        </div>
-        <div class="link-specialization user__search-link--bottom">
-            <a href="browse.html" class="link-regular">Ремонт</a>
-            <a href="browse.html" class="link-regular">Курьер</a>
-            <a href="browse.html" class="link-regular">Оператор ПК</a>
-        </div>
-    </div>
-    <div class="content-view__feedback-card user__search-wrapper">
-        <div class="feedback-card__top">
-            <div class="user__search-icon">
-                <a href="user.html"><img src="./img/user-man.jpg" width="65" height="65"></a>
-                <span>2 заданий</span>
-                <span>1 отзывов</span>
-            </div>
-            <div class="feedback-card__top--name user__search-card">
-                <p class="link-name"><a href="user.html" class="link-regular">Крючков Василий</a></p>
-                <span></span><span></span><span></span><span></span><span class="star-disabled"></span>
-                <b>4.25</b>
-                <p class="user__search-content">
-                    Разнообразный и богатый опыт говорит нам, что существующая теория способствует
-                    подготовке и реализации форм воздействия. Безусловно, укрепление и развитие
-                    внутренней структуры представляет собой интересный эксперимент
-                </p>
-            </div>
-            <span class="new-task__time">Был на сайте минуту назад</span>
-        </div>
-        <div class="link-specialization user__search-link--bottom">
-            <a href="browse.html" class="link-regular">Ремонт</a>
-            <a href="browse.html" class="link-regular">Курьер</a>
-            <a href="browse.html" class="link-regular">Оператор ПК</a>
-        </div>
-    </div>
+    <?php endforeach;?>
 </section>
 <section class="search-task">
     <div class="search-task__wrapper">

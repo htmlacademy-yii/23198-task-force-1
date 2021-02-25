@@ -3,6 +3,7 @@
 namespace frontend\models;
 
 use Yii;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "tasks".
@@ -30,7 +31,7 @@ use Yii;
  * @property-read  Users $freelancerTask
  * @property-read  Categories $category
  */
-class Tasks extends \yii\db\ActiveRecord
+class Tasks extends ActiveRecord
 {
     /**
      * {@inheritdoc}
