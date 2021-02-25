@@ -18,6 +18,6 @@ class TasksController extends Controller
         $users = Users::find()->all();
         $tasks = Tasks::find()->all();
 
-        return $this->render('index','tasks' => $tasks]);
+        return $this->render('index',['users' => $users, 'tasks' => $tasks]);
     }
 }
