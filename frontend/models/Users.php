@@ -20,19 +20,19 @@ use yii\db\ActiveRecord;
  * @property string|null $skype Скайп
  * @property string|null $telegram Телеграм
  *
- * @property Callbacks[] $callbacks
- * @property Favorite[] $favorites
- * @property Messages[] $messages
- * @property Messages[] $messages0
- * @property Photos[] $photos
- * @property Ratings[] $ratings
- * @property Ratings[] $ratings0
- * @property Settings $settings
- * @property Tasks[] $tasks
- * @property Tasks[] $tasks0
- * @property Cities $city
- * @property UsersSpecialization[] $usersSpecializations
- * @property Categories[] $categories
+ * @property-read  Callbacks[] $callbacks
+ * @property-read  Favorite[] $favorites
+ * @property-read  Messages[] $messagesFromUser
+ * @property-read  Messages[] $messagesToUser
+ * @property-read  Photos[] $photos
+ * @property-read  Ratings[] $ratingsUser
+ * @property-read  Ratings[] $ratingsFreelancer
+ * @property-read  Settings $settings
+ * @property-read  Tasks[] $tasksUser
+ * @property-read  Tasks[] $tasksFreelancer
+ * @property-read  Cities $city
+ * @property-read  UsersSpecialization[] $usersSpecializations
+ * @property-read  Categories[] $categories
  */
 class Users extends ActiveRecord
 {
@@ -59,7 +59,7 @@ class Users extends ActiveRecord
             [['password'], 'string', 'max' => 255],
             [['phone'], 'string', 'max' => 11],
             [['skype', 'telegram'], 'string', 'max' => 50],
-            [['city_id'], 'exist', 'skipOnError' => true, 'targetClass' => Cities::className(), 'targetAttribute' => ['city_id' => 'id']],
+            [['city_id'], 'exist', 'skipOnError' => true, 'targetClass' => Cities::class, 'targetAttribute' => ['city_id' => 'id']],
         ];
     }
 
@@ -70,16 +70,16 @@ class Users extends ActiveRecord
     {
         return [
             'id' => 'ID',
-            'name' => 'Name',
-            'email' => 'Email',
-            'city_id' => 'City ID',
-            'birthday' => 'Birthday',
-            'info' => 'Info',
-            'role' => 'Role',
-            'password' => 'Password',
-            'phone' => 'Phone',
-            'skype' => 'Skype',
-            'telegram' => 'Telegram',
+            'name' => Yii::t('app', 'ФИО пользователя'),
+            'email' => Yii::t('app', 'Электронная почта пользователя'),
+            'city_id' => Yii::t('app', 'id города пользователя'),
+            'birthday' => Yii::t('app', 'Дата рождения'),
+            'info' => Yii::t('app', 'Информация о пользователе'),
+            'role' => Yii::t('app', 'Роль пользователя'),
+            'password' => Yii::t('app', 'Пароль пользователя'),
+            'phone' => Yii::t('app', 'Телефон'),
+            'skype' => Yii::t('app', 'Скайп'),
+            'telegram' => Yii::t('app', 'Телеграм'),
         ];
     }
 
@@ -90,7 +90,7 @@ class Users extends ActiveRecord
      */
     public function getCallbacks()
     {
-        return $this->hasMany(Callbacks::className(), ['freelancer_id' => 'id']);
+        return $this->hasMany(Callbacks::class, ['freelancer_id' => 'id']);
     }
 
     /**
@@ -100,27 +100,27 @@ class Users extends ActiveRecord
      */
     public function getFavorites()
     {
-        return $this->hasMany(Favorite::className(), ['user_id' => 'id']);
+        return $this->hasMany(Favorite::class, ['user_id' => 'id']);
     }
 
     /**
-     * Gets query for [[Messages]].
+     * Gets query for [[MessagesFromUser]].
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getMessages()
+    public function getMessagesFromUser()
     {
-        return $this->hasMany(Messages::className(), ['from_user_id' => 'id']);
+        return $this->hasMany(Messages::class, ['from_user_id' => 'id']);
     }
 
     /**
-     * Gets query for [[Messages0]].
+     * Gets query for [[MessagesToUser]].
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getMessages0()
+    public function getMessagesToUser()
     {
-        return $this->hasMany(Messages::className(), ['to_user_id' => 'id']);
+        return $this->hasMany(Messages::class, ['to_user_id' => 'id']);
     }
 
     /**
@@ -130,27 +130,27 @@ class Users extends ActiveRecord
      */
     public function getPhotos()
     {
-        return $this->hasMany(Photos::className(), ['user_id' => 'id']);
+        return $this->hasMany(Photos::class, ['user_id' => 'id']);
     }
 
     /**
-     * Gets query for [[Ratings]].
+     * Gets query for [[RatingsUser]].
      *
      * @return \yii\db\ActiveQuery
      */
     public function getRatings()
     {
-        return $this->hasMany(Ratings::className(), ['user_id' => 'id']);
+        return $this->hasMany(Ratings::class, ['user_id' => 'id']);
     }
 
     /**
-     * Gets query for [[Ratings0]].
+     * Gets query for [[RatingsFreelancer]].
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getRatings0()
+    public function getRatingsFreelancer()
     {
-        return $this->hasMany(Ratings::className(), ['freelancer_id' => 'id']);
+        return $this->hasMany(Ratings::class, ['freelancer_id' => 'id']);
     }
 
     /**
@@ -160,27 +160,27 @@ class Users extends ActiveRecord
      */
     public function getSettings()
     {
-        return $this->hasOne(Settings::className(), ['user_id' => 'id']);
+        return $this->hasOne(Settings::class, ['user_id' => 'id']);
     }
 
     /**
-     * Gets query for [[Tasks]].
+     * Gets query for [[TasksUser]].
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getTasks()
+    public function getTasksUser()
     {
-        return $this->hasMany(Tasks::className(), ['user_create' => 'id']);
+        return $this->hasMany(Tasks::class, ['user_create' => 'id']);
     }
 
     /**
-     * Gets query for [[Tasks0]].
+     * Gets query for [[TasksFreelancer]].
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getTasks0()
+    public function getTasksFreelancer()
     {
-        return $this->hasMany(Tasks::className(), ['freelancer' => 'id']);
+        return $this->hasMany(Tasks::class, ['freelancer' => 'id']);
     }
 
     /**
@@ -190,7 +190,7 @@ class Users extends ActiveRecord
      */
     public function getCity()
     {
-        return $this->hasOne(Cities::className(), ['id' => 'city_id']);
+        return $this->hasOne(Cities::class, ['id' => 'city_id']);
     }
 
     /**
@@ -200,7 +200,7 @@ class Users extends ActiveRecord
      */
     public function getUsersSpecializations()
     {
-        return $this->hasMany(UsersSpecialization::className(), ['user_id' => 'id']);
+        return $this->hasMany(UsersSpecialization::class, ['user_id' => 'id']);
     }
 
     /**
@@ -210,6 +210,6 @@ class Users extends ActiveRecord
      */
     public function getCategories()
     {
-        return $this->hasMany(Categories::className(), ['id' => 'category_id'])->viaTable('users_specialization', ['user_id' => 'id']);
+        return $this->hasMany(Categories::class, ['id' => 'category_id'])->viaTable('users_specialization', ['user_id' => 'id']);
     }
 }

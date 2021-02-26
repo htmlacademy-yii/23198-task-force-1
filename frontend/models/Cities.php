@@ -3,6 +3,7 @@
 namespace frontend\models;
 
 use Yii;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "cities".
@@ -12,9 +13,9 @@ use Yii;
  * @property string $longitude Долгота
  * @property string $latitude Широта
  *
- * @property Users[] $users
+ * @property-read  Users[] $users
  */
-class Cities extends \yii\db\ActiveRecord
+class Cities extends ActiveRecord
 {
     /**
      * {@inheritdoc}
@@ -43,9 +44,9 @@ class Cities extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'name' => 'Name',
-            'longitude' => 'Longitude',
-            'latitude' => 'Latitude',
+            'name' => Yii::t('app', 'Город'),
+            'longitude' => Yii::t('app', 'Долгота'),
+            'latitude' => Yii::t('app', 'Широта'),
         ];
     }
 
@@ -56,6 +57,6 @@ class Cities extends \yii\db\ActiveRecord
      */
     public function getUsers()
     {
-        return $this->hasMany(Users::className(), ['city_id' => 'id']);
+        return $this->hasMany(Users::class, ['city_id' => 'id']);
     }
 }

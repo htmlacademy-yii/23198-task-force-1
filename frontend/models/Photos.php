@@ -3,6 +3,7 @@
 namespace frontend\models;
 
 use Yii;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "photos".
@@ -11,9 +12,9 @@ use Yii;
  * @property int $user_id id пользователя
  * @property string $path Путь до файла
  *
- * @property User $user
+ * @property-read  Users $user
  */
-class Photos extends \yii\db\ActiveRecord
+class Photos extends ActiveRecord
 {
     /**
      * {@inheritdoc}
@@ -32,7 +33,7 @@ class Photos extends \yii\db\ActiveRecord
             [['user_id', 'path'], 'required'],
             [['user_id'], 'integer'],
             [['path'], 'string', 'max' => 500],
-            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
+            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => Users::class, 'targetAttribute' => ['user_id' => 'id']],
         ];
     }
 
@@ -43,8 +44,8 @@ class Photos extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'user_id' => 'User ID',
-            'path' => 'Path',
+            'user_id' => Yii::t('app', 'id пользователя'),
+            'path' => Yii::t('app', 'путь до файла'),
         ];
     }
 
@@ -55,6 +56,6 @@ class Photos extends \yii\db\ActiveRecord
      */
     public function getUser()
     {
-        return $this->hasOne(User::className(), ['id' => 'user_id']);
+        return $this->hasOne(Users::class, ['id' => 'user_id']);
     }
 }

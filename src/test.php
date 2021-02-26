@@ -11,7 +11,7 @@ use Taskforce\base\exceptions\UserException;
 use Taskforce\base\Task;
 
 try {
-   $task = new Task(2, 1, 'status_new');
+   $task = new Task(2, 1, 'new');
 }
 catch (UserException $e) {
     echo 'Ошибка с пользователем: ' . $e->getMessage();
@@ -41,7 +41,7 @@ assert(($ReplyAction::getName() === Task::ACTION_REPLY) && ($ReplyAction->checkR
 assert(($MessageAction::getName() === Task::ACTION_MESSAGE) && ($MessageAction->checkRules($task, 2) === true), 'worker status new');
 
 try {
-    $task->setStatus('status_work');
+    $task->setStatus('work');
 }
 catch (StatusException $e) {
     echo 'Ошибка статуса: ' . $e->getMessage();
@@ -57,7 +57,7 @@ assert(($DeclineAction::getName() === Task::ACTION_DECLINE) && ($DeclineAction->
 assert(($MessageAction::getName() === Task::ACTION_MESSAGE) && ($MessageAction->checkRules($task, 2)), 'worker status work');
 
 try {
-    $task->setStatus('status_done');
+    $task->setStatus('done');
 }
 catch (StatusException $e) {
     echo 'Ошибка статуса: ' . $e->getMessage();
@@ -73,7 +73,7 @@ extract($action);
 assert(($MessageAction::getName() === Task::ACTION_MESSAGE) && ($MessageAction->checkRules($task, 2)), 'worker status done');
 
 try {
-    $task->setStatus('status_cancelled');
+    $task->setStatus('cancelled');
 }
 catch (StatusException $e) {
     echo 'Ошибка статуса: ' . $e->getMessage();
@@ -88,7 +88,7 @@ extract($action);
 assert(($MessageAction::getName() === Task::ACTION_MESSAGE) && ($MessageAction->checkRules($task, 2)), 'worker status cancelled');
 
 try {
-    $task->setStatus('status_fail');
+    $task->setStatus('fail');
 }
 catch (StatusException $e) {
     echo 'Ошибка статуса: ' . $e->getMessage();
@@ -103,7 +103,7 @@ extract($action);
 assert(($MessageAction::getName() === Task::ACTION_MESSAGE) && ($MessageAction->checkRules($task, 2)), 'worker status cancelled');
 
 try {
-    $task->setStatus('status_new');
+    $task->setStatus('new');
 }
 catch (StatusException $e) {
     echo 'Ошибка статуса: ' . $e->getMessage();
@@ -119,7 +119,7 @@ assert(($CancelAction::getName() === Task::ACTION_CANCEL) && ($CancelAction->che
 assert(($MessageAction::getName() === Task::ACTION_MESSAGE) && ($MessageAction->checkRules($task, 1) === true), 'client status new');
 
 try {
-    $task->setStatus('status_work');
+    $task->setStatus('work');
 }
 catch (StatusException $e) {
     echo 'Ошибка статуса: ' . $e->getMessage();
@@ -135,7 +135,7 @@ assert(($DoneAction::getName() === Task::ACTION_DONE) && ($DoneAction->checkRule
 assert(($MessageAction::getName() === Task::ACTION_MESSAGE) && ($MessageAction->checkRules($task, 1) === true), 'client status new');
 
 try {
-    $task->setStatus('status_done');
+    $task->setStatus('done');
 }
 catch (StatusException $e) {
     echo 'Ошибка статуса: ' . $e->getMessage();
@@ -150,7 +150,7 @@ extract($action);
 assert(($MessageAction::getName() === Task::ACTION_MESSAGE) && ($MessageAction->checkRules($task, 1)), 'client status done');
 
 try {
-    $task->setStatus('status_cancelled');
+    $task->setStatus('cancelled');
 }
 catch (StatusException $e) {
     echo 'Ошибка статуса: ' . $e->getMessage();
@@ -165,7 +165,7 @@ extract($action);
 assert(($MessageAction::getName() === Task::ACTION_MESSAGE) && ($MessageAction->checkRules($task, 1)), 'client status cancelled');
 
 try {
-    $task->setStatus('status_fail');
+    $task->setStatus('fail');
 }
 catch (StatusException $e) {
     echo 'Ошибка статуса: ' . $e->getMessage();

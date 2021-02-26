@@ -20,11 +20,11 @@ require_once __DIR__ . '/../../vendor/autoload.php';
  */
 class Task
 {
-    const STATUS_NEW = 'status_new';
-    const STATUS_CANCELLED = 'status_cancelled';
-    const STATUS_WORK = 'status_work';
-    const STATUS_DONE = 'status_done';
-    const STATUS_FAIL = 'status_fail';
+    const STATUS_NEW = 'new';
+    const STATUS_CANCELLED = 'cancelled';
+    const STATUS_WORK = 'work';
+    const STATUS_DONE = 'done';
+    const STATUS_FAIL = 'fail';
 
     const ACTION_CANCEL = 'action_cancel';
     const ACTION_REPLY = 'action_reply';
@@ -32,8 +32,8 @@ class Task
     const ACTION_DECLINE = 'action_decline';
     const ACTION_MESSAGE = 'action_message';
 
-    const WORKER = 'worker';
-    const CLIENT = 'client';
+    const ROLE_WORKER = 'worker';
+    const ROLE_CLIENT = 'client';
 
     private $_status;
 
@@ -57,14 +57,14 @@ class Task
     ];
 
     private $availableAction = [
-        self::WORKER => [
+        self::ROLE_WORKER => [
             self::STATUS_NEW => [ReplyAction::class, MessageAction::class],
             self::STATUS_WORK => [DeclineAction::class, MessageAction::class],
             self::STATUS_DONE => [MessageAction::class],
             self::STATUS_CANCELLED => [MessageAction::class],
             self::STATUS_FAIL => [MessageAction::class]
         ],
-        self::CLIENT => [
+        self::ROLE_CLIENT => [
             self::STATUS_NEW => [CancelAction::class, MessageAction::class],
             self::STATUS_WORK => [DoneAction::class, MessageAction::class],
             self::STATUS_DONE => [MessageAction::class],

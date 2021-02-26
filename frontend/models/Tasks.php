@@ -3,6 +3,7 @@
 namespace frontend\models;
 
 use Yii;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "tasks".
@@ -21,16 +22,16 @@ use Yii;
  * @property string|null $longitude Долгота
  * @property string|null $latitude Широта
  *
- * @property Callback[] $callbacks
- * @property Favorite[] $favorites
- * @property File[] $files
- * @property Message[] $messages
- * @property Rating[] $ratings
- * @property User $userCreate
- * @property User $freelancer0
- * @property Category $category
+ * @property-read  Callbacks[] $callbacks
+ * @property-read  Favorite[] $favorites
+ * @property-read  Files[] $files
+ * @property-read  Messages[] $messages
+ * @property-read  Ratings[] $ratings
+ * @property-read  Users $userCreate
+ * @property-read  Users $freelancerTask
+ * @property-read  Categories $category
  */
-class Tasks extends \yii\db\ActiveRecord
+class Tasks extends ActiveRecord
 {
     /**
      * {@inheritdoc}
@@ -52,9 +53,9 @@ class Tasks extends \yii\db\ActiveRecord
             [['create_at', 'deadline'], 'safe'],
             [['title', 'longitude', 'latitude'], 'string', 'max' => 255],
             [['description'], 'string', 'max' => 1000],
-            [['user_create'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_create' => 'id']],
-            [['freelancer'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['freelancer' => 'id']],
-            [['category_id'], 'exist', 'skipOnError' => true, 'targetClass' => Category::className(), 'targetAttribute' => ['category_id' => 'id']],
+            [['user_create'], 'exist', 'skipOnError' => true, 'targetClass' => Users::class, 'targetAttribute' => ['user_create' => 'id']],
+            [['freelancer'], 'exist', 'skipOnError' => true, 'targetClass' => Users::class, 'targetAttribute' => ['freelancer' => 'id']],
+            [['category_id'], 'exist', 'skipOnError' => true, 'targetClass' => Categories::class, 'targetAttribute' => ['category_id' => 'id']],
         ];
     }
 
@@ -65,18 +66,18 @@ class Tasks extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'user_create' => 'User Create',
-            'freelancer' => 'Freelancer',
-            'category_id' => 'Category ID',
-            'status' => 'Status',
-            'title' => 'Title',
-            'description' => 'Description',
-            'create_at' => 'Create At',
-            'price' => 'Price',
-            'deadline' => 'Deadline',
-            'city_id' => 'City ID',
-            'longitude' => 'Longitude',
-            'latitude' => 'Latitude',
+            'user_create' => Yii::t('app', 'id пользователя'),
+            'freelancer' => Yii::t('app', 'id исполнителя'),
+            'category_id' => Yii::t('app', 'id категории'),
+            'status' => Yii::t('app', 'Статус задачи'),
+            'title' => Yii::t('app', 'Заголовок задачи'),
+            'description' => Yii::t('app', 'Описание задачи'),
+            'create_at' => Yii::t('app', 'Время создания объявления'),
+            'price' => Yii::t('app', 'Стоимость работы'),
+            'deadline' => Yii::t('app', 'Дата завершения задачи задачи'),
+            'city_id' => Yii::t('app', 'id города'),
+            'longitude' => Yii::t('app', 'Долгота'),
+            'latitude' => Yii::t('app', 'Широта'),
         ];
     }
 
@@ -87,7 +88,7 @@ class Tasks extends \yii\db\ActiveRecord
      */
     public function getCallbacks()
     {
-        return $this->hasMany(Callbacks::className(), ['task_id' => 'id']);
+        return $this->hasMany(Callbacks::class, ['task_id' => 'id']);
     }
 
     /**
@@ -97,7 +98,7 @@ class Tasks extends \yii\db\ActiveRecord
      */
     public function getFavorites()
     {
-        return $this->hasMany(Favorites::className(), ['task_id' => 'id']);
+        return $this->hasMany(Favorite::class, ['task_id' => 'id']);
     }
 
     /**
@@ -107,7 +108,7 @@ class Tasks extends \yii\db\ActiveRecord
      */
     public function getFiles()
     {
-        return $this->hasMany(Files::className(), ['task_id' => 'id']);
+        return $this->hasMany(Files::class, ['task_id' => 'id']);
     }
 
     /**
@@ -117,7 +118,7 @@ class Tasks extends \yii\db\ActiveRecord
      */
     public function getMessages()
     {
-        return $this->hasMany(Messages::className(), ['task_id' => 'id']);
+        return $this->hasMany(Messages::class, ['task_id' => 'id']);
     }
 
     /**
@@ -127,7 +128,7 @@ class Tasks extends \yii\db\ActiveRecord
      */
     public function getRatings()
     {
-        return $this->hasMany(Ratings::className(), ['task_id' => 'id']);
+        return $this->hasMany(Ratings::class, ['task_id' => 'id']);
     }
 
     /**
@@ -137,7 +138,7 @@ class Tasks extends \yii\db\ActiveRecord
      */
     public function getUserCreate()
     {
-        return $this->hasOne(Users::className(), ['id' => 'user_create']);
+        return $this->hasOne(Users::class, ['id' => 'user_create']);
     }
 
     /**
@@ -145,9 +146,9 @@ class Tasks extends \yii\db\ActiveRecord
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getFreelancer0()
+    public function getFreelancerTask()
     {
-        return $this->hasOne(Users::className(), ['id' => 'freelancer']);
+        return $this->hasOne(Users::class, ['id' => 'freelancer']);
     }
 
     /**
@@ -157,6 +158,23 @@ class Tasks extends \yii\db\ActiveRecord
      */
     public function getCategory()
     {
-        return $this->hasOne(Categories::className(), ['id' => 'category_id']);
+        return $this->hasOne(Categories::class, ['id' => 'category_id']);
+    }
+
+    /**
+     * @property-read string $createdAtFormat
+     *
+     */
+    public function getCreatedAtFormat()
+    {
+        return Yii::$app->formatter->asRelativeTime($this->create_at, 'now');
+    }
+
+    /**
+     * @property-read string $priceFormat
+     */
+    public function getPriceFormat()
+    {
+        return Yii::$app->formatter->asCurrency($this->price);
     }
 }

@@ -3,6 +3,7 @@
 namespace frontend\models;
 
 use Yii;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "callbacks".
@@ -13,10 +14,10 @@ use Yii;
  * @property string|null $text Текст отклика
  * @property int $price Цена исполнителя за работу
  *
- * @property Users $freelancer
- * @property Tasks $task
+ * @property-read  Users $freelancer
+ * @property-read  Tasks $task
  */
-class Callbacks extends \yii\db\ActiveRecord
+class Callbacks extends ActiveRecord
 {
     /**
      * {@inheritdoc}
@@ -35,8 +36,8 @@ class Callbacks extends \yii\db\ActiveRecord
             [['task_id', 'freelancer_id', 'price'], 'required'],
             [['task_id', 'freelancer_id', 'price'], 'integer'],
             [['text'], 'string', 'max' => 255],
-            [['freelancer_id'], 'exist', 'skipOnError' => true, 'targetClass' => Users::className(), 'targetAttribute' => ['freelancer_id' => 'id']],
-            [['task_id'], 'exist', 'skipOnError' => true, 'targetClass' => Tasks::className(), 'targetAttribute' => ['task_id' => 'id']],
+            [['freelancer_id'], 'exist', 'skipOnError' => true, 'targetClass' => Users::class, 'targetAttribute' => ['freelancer_id' => 'id']],
+            [['task_id'], 'exist', 'skipOnError' => true, 'targetClass' => Tasks::class, 'targetAttribute' => ['task_id' => 'id']],
         ];
     }
 
@@ -47,10 +48,10 @@ class Callbacks extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'task_id' => 'Task ID',
-            'freelancer_id' => 'Freelancer ID',
-            'text' => 'Text',
-            'price' => 'Price',
+            'task_id' => Yii::t('app', 'ID задания'),
+            'freelancer_id' => Yii::t('app', 'ID исполнителя'),
+            'text' => Yii::t('app', 'Текст отклика'),
+            'price' => Yii::t('app', 'Цена исполнителя за работу'),
         ];
     }
 
@@ -61,7 +62,7 @@ class Callbacks extends \yii\db\ActiveRecord
      */
     public function getFreelancer()
     {
-        return $this->hasOne(Users::className(), ['id' => 'freelancer_id']);
+        return $this->hasOne(Users::class, ['id' => 'freelancer_id']);
     }
 
     /**
@@ -71,6 +72,6 @@ class Callbacks extends \yii\db\ActiveRecord
      */
     public function getTask()
     {
-        return $this->hasOne(Tasks::className(), ['id' => 'task_id']);
+        return $this->hasOne(Tasks::class, ['id' => 'task_id']);
     }
 }

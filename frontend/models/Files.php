@@ -3,6 +3,7 @@
 namespace frontend\models;
 
 use Yii;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "files".
@@ -11,9 +12,9 @@ use Yii;
  * @property int $task_id id задания
  * @property string|null $path Путь до файла
  *
- * @property Task $task
+ * @property-read  Tasks $task
  */
-class Files extends \yii\db\ActiveRecord
+class Files extends ActiveRecord
 {
     /**
      * {@inheritdoc}
@@ -32,7 +33,7 @@ class Files extends \yii\db\ActiveRecord
             [['task_id'], 'required'],
             [['task_id'], 'integer'],
             [['path'], 'string', 'max' => 100],
-            [['task_id'], 'exist', 'skipOnError' => true, 'targetClass' => Task::className(), 'targetAttribute' => ['task_id' => 'id']],
+            [['task_id'], 'exist', 'skipOnError' => true, 'targetClass' => Tasks::class, 'targetAttribute' => ['task_id' => 'id']],
         ];
     }
 
@@ -43,8 +44,8 @@ class Files extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'task_id' => 'Task ID',
-            'path' => 'Path',
+            'task_id' => Yii::t('app', 'id задания'),
+            'path' => Yii::t('app', 'Путь до файла'),
         ];
     }
 
@@ -55,6 +56,6 @@ class Files extends \yii\db\ActiveRecord
      */
     public function getTask()
     {
-        return $this->hasOne(Task::className(), ['id' => 'task_id']);
+        return $this->hasOne(Tasks::class, ['id' => 'task_id']);
     }
 }
