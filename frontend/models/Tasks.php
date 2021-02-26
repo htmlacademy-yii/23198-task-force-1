@@ -160,4 +160,21 @@ class Tasks extends ActiveRecord
     {
         return $this->hasOne(Categories::class, ['id' => 'category_id']);
     }
+
+    /**
+     * @property-read string $createdAtFormat
+     *
+     */
+    public function getCreatedAtFormat()
+    {
+        return Yii::$app->formatter->asRelativeTime($this->create_at, 'now');
+    }
+
+    /**
+     * @property-read string $priceFormat
+     */
+    public function getPriceFormat()
+    {
+        return Yii::$app->formatter->asCurrency($this->price);
+    }
 }

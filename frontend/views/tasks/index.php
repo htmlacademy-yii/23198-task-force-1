@@ -1,11 +1,9 @@
 <?php
 use yii\web\View;
 use frontend\models\Tasks;
-use frontend\models\Users;
 
 /**
  * @var View $this
- * @var Users[] $users
  * @var Tasks[] $tasks
  */
 
@@ -24,9 +22,9 @@ $this->title = 'Tasks Controller';
             <p class="new-task_description">
                 <?= $task->description; ?>
             </p>
-            <b class="new-task__price new-task__price--translation"><?= $task->price; ?><b> ₽</b></b>
+            <b class="new-task__price new-task__price--translation"><?= $task->priceFormat; ?></b>
             <p class="new-task__place">Санкт-Петербург, Центральный район</p>
-            <span class="new-task__time">4 часа назад</span>
+            <span class="new-task__time"><?= $task->createdAtFormat; ?></span>
         </div>
         <?php endforeach; ?>
     </div>
