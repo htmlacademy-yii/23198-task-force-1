@@ -42,6 +42,9 @@ phpunit.phar
 /backend/web/index-test.php
 /backend/web/robots.txt
 
+deploy.bat
+deploy.sh
+
 *.ai
 *.log
 *.pdf
