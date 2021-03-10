@@ -47,20 +47,31 @@ class UserFilter extends Model
         }
 
         if($this->isFree) {
-            $users->joinWith('tasksFreelancer')->andWhere(['tasks.status' => Task::STATUS_DONE]);
+            $users->join(
+                'LEFT JOIN',
+                'tasks t', 't.freelancer = users.id AND t.status = :status',
+                [
+                    'status' => Task::STATUS_WORK,
+                ]
+            )
+                ->groupBy('users.id')
+                ->having('COUNT(t.id) = 0');
         }
 
         if ($this->isOnline) {
             $expression = new Expression(sprintf(('CURRENT_TIMESTAMP() - INTERVAL %d MINUTE'), 30));
-            $users->andFilterWhere(['<=', 'last_visit',  $expression]);
+            $users->andFilterWhere(['>=', 'last_visit',  $expression]);
         }
 
         if ($this->hasReview) {
-            $users->joinWith('ratings')->andWhere(['ratings.review' => 'NOT NULL']);
+            $users->joinWith('ratingsFreelancer')->andWhere(['!=', 'ratings.review', '']);
         }
 
         if ($this->hasFavorite) {
-            $users->joinWith('favorites')->andWhere(['favorite.user_id' => 'user.id']);
+            $users->join(
+                'INNER JOIN',
+                'favorite f', 'f.freelancer_id = users.id'
+            );
         }
 
         if ($this->name) {
