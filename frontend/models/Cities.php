@@ -14,6 +14,7 @@ use yii\db\ActiveRecord;
  * @property string $latitude Широта
  *
  * @property-read  Users[] $users
+ *
  */
 class Cities extends ActiveRecord
 {
@@ -24,6 +25,7 @@ class Cities extends ActiveRecord
     {
         return 'cities';
     }
+
 
     /**
      * {@inheritdoc}

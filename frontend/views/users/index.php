@@ -35,12 +35,12 @@ $this->title = 'Users Controller';
                     <?= $user->info;?>
                 </p>
             </div>
-            <span class="new-task__time">Был на сайте 25 минут назад</span>
+            <span class="new-task__time">Был на сайте <?= $user->lastVisitAtFormat; ?></span>
         </div>
         <div class="link-specialization user__search-link--bottom">
-            <a href="browse.html" class="link-regular">Ремонт</a>
-            <a href="browse.html" class="link-regular">Курьер</a>
-            <a href="browse.html" class="link-regular">Оператор ПК</a>
+            <?php foreach ($user->usersSpecializations as $spec): ?>
+                <a href="browse.html" class="link-regular"><?= $spec->category->name?></a>
+            <?php endforeach;?>
         </div>
     </div>
     <?php endforeach;?>

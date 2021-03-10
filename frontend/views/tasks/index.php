@@ -1,5 +1,6 @@
 <?php
 
+use frontend\models\Cities;
 use yii\web\View;
 use frontend\models\Categories;
 use frontend\models\TaskFilter;

@@ -15,6 +15,8 @@ return [
             'thousandSeparator' => ' ',
             'currencyCode' => 'RUB',
             'locale' => 'ru-RU',
+            'defaultTimeZone' => 'Asia/Almaty',
+            'timeZone' => 'Asia/Almaty',
             'numberFormatterOptions' => [
                 NumberFormatter::MIN_FRACTION_DIGITS => 0,
                 NumberFormatter::MAX_FRACTION_DIGITS => 2,

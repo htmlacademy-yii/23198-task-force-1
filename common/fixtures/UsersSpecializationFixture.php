@@ -6,7 +6,7 @@ namespace common\fixtures;
 
 use yii\test\ActiveFixture;
 
-class UsersFixture extends ActiveFixture
+class UsersSpecializationFixture extends ActiveFixture
 {
     public $modelClass = 'frontend\models\UsersSpecialization';
 }

@@ -19,6 +19,7 @@ use yii\db\ActiveRecord;
  * @property string|null $phone Телефон
  * @property string|null $skype Скайп
  * @property string|null $telegram Телеграм
+ * @property string $last_visit Время последнего визита
  *
  * @property-read  Callbacks[] $callbacks
  * @property-read  Favorite[] $favorites
@@ -52,7 +53,7 @@ class Users extends ActiveRecord
         return [
             [['name', 'email', 'city_id', 'password'], 'required'],
             [['city_id'], 'integer'],
-            [['birthday'], 'safe'],
+            [['birthday', 'last_visit'], 'safe'],
             [['role'], 'string'],
             [['name', 'email'], 'string', 'max' => 100],
             [['info'], 'string', 'max' => 1000],
@@ -211,5 +212,14 @@ class Users extends ActiveRecord
     public function getCategories()
     {
         return $this->hasMany(Categories::class, ['id' => 'category_id'])->viaTable('users_specialization', ['user_id' => 'id']);
+    }
+
+    /**
+     * @property-read string $lastVisitAtFormat
+     *
+     */
+    public function getLastVisitAtFormat()
+    {
+        return Yii::$app->formatter->asRelativeTime($this->last_visit, 'now');
     }
 }
