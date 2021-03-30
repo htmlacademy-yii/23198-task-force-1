@@ -14,4 +14,5 @@ return [
     'phone' => substr($faker->e164PhoneNumber, 1, 11),
     'skype' => $faker->userName,
     'telegram' => $faker->userName,
+    'last_visit' => $faker->dateTimeInInterval($startDate = '+ 3 hours', $interval = '+ 1 hours', $timezone = null)->format('Y-m-d H:i:s')
 ];

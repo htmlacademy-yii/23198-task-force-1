@@ -30,6 +30,7 @@ use yii\db\ActiveRecord;
  * @property-read  Users $userCreate
  * @property-read  Users $freelancerTask
  * @property-read  Categories $category
+ * @property-read  Cities $city
  */
 class Tasks extends ActiveRecord
 {
@@ -176,5 +177,15 @@ class Tasks extends ActiveRecord
     public function getPriceFormat()
     {
         return Yii::$app->formatter->asCurrency($this->price);
+    }
+
+    /**
+     * Gets query for [[City]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCity()
+    {
+        return $this->hasOne(Cities::class, ['id' => 'city_id']);
     }
 }
