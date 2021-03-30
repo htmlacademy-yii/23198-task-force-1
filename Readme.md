@@ -1,8 +1,7 @@
 # Личный проект «TaskForce»
 
 * Студент: [Роман Смирнов](https://up.htmlacademy.ru/yii/1/user/23198).
-* Наставник: [Дмитрий Грозный](https://htmlacademy.ru/profile/id1400793).
-
+* Наставник: [Денис Ходаковский](https://htmlacademy.ru/profile/id1232355).  
 ---
 
 **Обратите внимание на файл:**
